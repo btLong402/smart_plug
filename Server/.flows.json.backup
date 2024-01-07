@@ -1,0 +1,39 @@
+[
+    {
+        "id": "7aec13c798391291",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3c9064ce872e644e",
+        "type": "uibuilder",
+        "z": "7aec13c798391291",
+        "name": "",
+        "topic": "",
+        "url": "http://127.0.0.1:5500/ui.html",
+        "okToGo": false,
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "blank",
+        "extTemplate": "",
+        "showfolder": false,
+        "oldUrl": "http://127.0.0.1:1882/smart_plug",
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.8.2",
+        "showMsgUib": false,
+        "title": "",
+        "descr": "",
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [],
+            []
+        ]
+    }
+]

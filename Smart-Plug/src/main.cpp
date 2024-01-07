@@ -34,10 +34,10 @@ enum Topic
 };
 String webPage = R"(<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>WiFi Setup</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <title>WiFi Setup</title>
+    <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -85,23 +85,34 @@ String webPage = R"(<!DOCTYPE html>
       background-color: #0056b3;
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <h2>WiFi Setup</h2>
-    <form id="wifiForm">
-      <div class="form-group">
-        <label for="wifiName">WiFi Name:</label>
-        <input type="text" id="wifiName" name="wifiName" required>
-      </div>
-      <div class="form-group">
-        <label for="wifiPassword">Password:</label>
-        <input type="password" id="wifiPassword" name="wifiPassword" required>
-      </div>
-      <input type="submit" value="Connect">
-    </form>
-  </div>
-</body>
+    <script>
+    function submitForm() {
+      var wifiName = document.getElementById("wifiName").value;
+      var wifiPassword = document.getElementById("wifiPassword").value;
+
+      // Send an HTTP request to the server with the entered values
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/connect?ssid=" + wifiName + "&pass=" + wifiPassword, true);
+      xhr.send();
+    }
+  </script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>WiFi Setup</h2>
+      <form id="wifiForm">
+        <div class="form-group">
+          <label for="wifiName">WiFi Name:</label>
+          <input type="text" id="wifiName" name="wifiName" required>
+        </div>
+        <div class="form-group">
+          <label for="wifiPassword">Password:</label>
+          <input type="password" id="wifiPassword" name="wifiPassword" required>
+        </div>
+        <input type="submit" value="Connect" onclick="submitForm() ">
+      </form>
+    </div>
+  </body>
 </html>
 )";
 
@@ -129,7 +140,7 @@ void handleConnect()
 
   ssidParam.toCharArray(ssid, sizeof(ssid));
   passParam.toCharArray(pass, sizeof(pass));
-
+  connectWifi();
   server.send(200, "text/plain", "Credentials updated!");
 }
 void setup()
@@ -148,10 +159,12 @@ void loop()
 {
   if (WiFi.status() != WL_CONNECTED)
   {
-    server.handleClient();
-     if (strcmp(ssid, "") != 0)
+    if (WiFi.softAPIP())
+      server.handleClient();
+    else
     {
-      connectWifi();
+      setupAP();
+      server.handleClient();
     }
   }
   else
@@ -162,7 +175,7 @@ void loop()
     }
     mqtt_client.loop();
     // unsigned long now = millis();
-    mqtt_client.subscribe("to_r1");
+    mqtt_client.subscribe("user_name/equ_id/to_r1");
   }
   // put your main code here, to run repeatedly:
 }
@@ -243,7 +256,7 @@ void setupMQTT()
   mqtt_client.setCallback(callBack);
   mqtt_client.subscribe("to_r1");
   mqtt_client.subscribe("to_r2");
-  mqtt_client.publish("from-esp8266", "Hello Server");
+  mqtt_client.publish("eqId", "userName");
 }
 
 void reconnect()
