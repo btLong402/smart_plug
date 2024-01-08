@@ -4,6 +4,12 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "node-red-contrib-uibuilder": "~6.8.2"
+        "node-red-contrib-aedes": "~0.12.0",
+        "node-red-dashboard": "~3.6.2",
+        "node-red-node-mysql": "~2.0.0",
+        "node-red-node-ui-iframe": "~0.2.1",
+        "node-red-node-ui-lineargauge": "~0.3.7",
+        "node-red-node-ui-list": "~0.3.6",
+        "node-red-node-ui-table": "~0.4.3"
     }
 }
