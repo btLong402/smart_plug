@@ -2,7 +2,7 @@
     {
         "id": "84070b956f808308",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Home",
         "disabled": false,
         "info": "",
         "env": []
@@ -34,7 +34,7 @@
     {
         "id": "5b7c3022fb252408",
         "type": "tab",
-        "label": "Flow 4",
+        "label": "Logout",
         "disabled": false,
         "info": "",
         "env": []
@@ -77,7 +77,7 @@
         "icon": "dashboard",
         "order": 3,
         "disabled": false,
-        "hidden": false
+        "hidden": true
     },
     {
         "id": "878cb2d6465c23c0",
@@ -214,7 +214,7 @@
         "icon": "dashboard",
         "order": 2,
         "disabled": false,
-        "hidden": true
+        "hidden": false
     },
     {
         "id": "f0d047bca5f32611",
@@ -236,6 +236,26 @@
         "db": "iotdb",
         "tz": "",
         "charset": "UTF8"
+    },
+    {
+        "id": "add1faeab873f5bb",
+        "type": "ui_tab",
+        "name": "Log out",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "41226fd164ba85b2",
+        "type": "ui_group",
+        "name": "Log out",
+        "tab": "add1faeab873f5bb",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "ec62c5205bd8e176",
@@ -547,8 +567,8 @@
         "name": "",
         "group": "506de255854d948c",
         "order": 3,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "Login",
         "tooltip": "",
@@ -560,7 +580,7 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 230,
+        "x": 250,
         "y": 300,
         "wires": [
             [
@@ -587,7 +607,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
+        "x": 960,
         "y": 300,
         "wires": [
             [
@@ -604,8 +624,8 @@
         "tooltip": "",
         "group": "506de255854d948c",
         "order": 1,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": true,
         "mode": "text",
         "delay": 300,
@@ -630,8 +650,8 @@
         "tooltip": "",
         "group": "506de255854d948c",
         "order": 2,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": true,
         "mode": "password",
         "delay": 300,
@@ -653,7 +673,7 @@
         "z": "cb40a44d23cb5760",
         "name": "",
         "group": "506de255854d948c",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -667,7 +687,7 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 240,
+        "x": 260,
         "y": 400,
         "wires": [
             [
@@ -758,7 +778,7 @@
         "z": "cb40a44d23cb5760",
         "mydb": "e7f976d3ee444ce1",
         "name": "DB",
-        "x": 610,
+        "x": 550,
         "y": 300,
         "wires": [
             [
@@ -782,22 +802,22 @@
         "topic": "",
         "name": "",
         "x": 290,
-        "y": 520,
+        "y": 500,
         "wires": []
     },
     {
         "id": "2a709be85ec57e04",
         "type": "function",
         "z": "cb40a44d23cb5760",
-        "name": "function 2",
-        "func": "msg.topic = `select login('${flow.get(\"userName\")}', '${flow.get(\"password\")}') as res`\nmsg.payload = `login('${flow.get(\"userName\")}', '${flow.get(\"password\")}')`\nreturn msg;",
+        "name": "login",
+        "func": "msg.topic = `select login('${flow.get(\"userName\")}', '${flow.get(\"password\")}') as res`\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 400,
+        "x": 390,
         "y": 300,
         "wires": [
             [
@@ -817,54 +837,121 @@
                 "t": "eq",
                 "v": "1",
                 "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 810,
+        "outputs": 2,
+        "x": 730,
         "y": 300,
         "wires": [
             [
                 "a0e283fd70b3e27b",
-                "2f61654b88fa2998"
+                "bbbfb929e17c40b0",
+                "94fe86b1c64a8ca9",
+                "a9d0dd0774c1a0f1"
+            ],
+            [
+                "0e89dd608760b689"
             ]
         ]
     },
     {
-        "id": "2f61654b88fa2998",
-        "type": "debug",
+        "id": "bbbfb929e17c40b0",
+        "type": "ui_toast",
         "z": "cb40a44d23cb5760",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1020,
-        "y": 180,
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "Green",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "Login Success",
+        "name": "",
+        "x": 990,
+        "y": 120,
         "wires": []
     },
     {
-        "id": "19cb6cf65d9c2c49",
-        "type": "ui_list",
+        "id": "0e89dd608760b689",
+        "type": "ui_toast",
         "z": "cb40a44d23cb5760",
-        "group": "878cb2d6465c23c0",
-        "name": "",
-        "order": 4,
-        "width": "6",
-        "height": "3",
-        "lineType": "two",
-        "actionType": "none",
-        "allowHTML": false,
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "red",
+        "sendall": true,
         "outputs": 0,
-        "topic": "",
-        "x": 830,
-        "y": 120,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "Wrong user or password",
+        "name": "",
+        "x": 990,
+        "y": 220,
         "wires": []
+    },
+    {
+        "id": "94fe86b1c64a8ca9",
+        "type": "change",
+        "z": "cb40a44d23cb5760",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tabs\":{\"show\":[\"Home\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 360,
+        "wires": [
+            [
+                "152b57b93893f581"
+            ]
+        ]
+    },
+    {
+        "id": "a9d0dd0774c1a0f1",
+        "type": "change",
+        "z": "cb40a44d23cb5760",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tabs\":{\"hide\":[\"Login\", \"Sign Up\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 440,
+        "wires": [
+            [
+                "152b57b93893f581"
+            ]
+        ]
     },
     {
         "id": "62e6c8e41318ed99",
@@ -1410,6 +1497,129 @@
             [
                 "920a0611142d9cf7"
             ]
+        ]
+    },
+    {
+        "id": "b6e4508264098a08",
+        "type": "ui_button",
+        "z": "5b7c3022fb252408",
+        "name": "",
+        "group": "41226fd164ba85b2",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log out",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 280,
+        "y": 240,
+        "wires": [
+            [
+                "ecac4c174bc61c82",
+                "eaa97a455a08aa68",
+                "063f27fe2a94dc02"
+            ]
+        ]
+    },
+    {
+        "id": "ecac4c174bc61c82",
+        "type": "change",
+        "z": "5b7c3022fb252408",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tabs\":{\"show\":[\"Login\", \"Sign Up\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 240,
+        "wires": [
+            [
+                "f784af9c6ec11c36"
+            ]
+        ]
+    },
+    {
+        "id": "eaa97a455a08aa68",
+        "type": "change",
+        "z": "5b7c3022fb252408",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Login\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "f784af9c6ec11c36"
+            ]
+        ]
+    },
+    {
+        "id": "063f27fe2a94dc02",
+        "type": "change",
+        "z": "5b7c3022fb252408",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tabs\":{\"hide\":[\"Home\", \"Log out\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "f784af9c6ec11c36"
+            ]
+        ]
+    },
+    {
+        "id": "f784af9c6ec11c36",
+        "type": "ui_ui_control",
+        "z": "5b7c3022fb252408",
+        "name": "",
+        "events": "all",
+        "x": 800,
+        "y": 240,
+        "wires": [
+            []
         ]
     }
 ]
