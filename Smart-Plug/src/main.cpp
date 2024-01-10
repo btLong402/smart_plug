@@ -12,7 +12,6 @@
 #include <ESP8266WebServer.h>
 #include "ACS712.h"
 
-
 // Data wire is plugged into pin D3 on the ESP8266
 #define ONE_WIRE_BUS D3
 OneWire oneWire(ONE_WIRE_BUS);
@@ -261,16 +260,13 @@ void loop()
     mqtt_client.subscribe(tp.c_str());
   }
   // put your main code here, to run repeatedly:
-  //get current temperature
   sensor1.requestTemperatures();
-  Serial.print("Temperature: ");
-  Serial.println(sensor1.getTempCByIndex(0));
-  delay(2000);
-  // Get current from sensor
-  float I = sensor2.getCurrentDC();
+  // get current temperature and current
+  float temperature = sensor1.getTempCByIndex(0);
+  float current = sensor2.getCurrentDC();
   
-  // Send it to serial
-  Serial.println(String("I = ") + I + " A");
+  delay(2000);
+
 }
 
 // put function definitions here:
