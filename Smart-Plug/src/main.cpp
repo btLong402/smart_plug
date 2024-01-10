@@ -10,6 +10,15 @@
 #include <cctype> // for toupper
 #include <ArduinoJson.h>
 #include <ESP8266WebServer.h>
+#include "ACS712.h"
+
+
+// Data wire is plugged into pin D3 on the ESP8266
+#define ONE_WIRE_BUS D3
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensor1(&oneWire);
+// current
+ACS712 sensor2(ACS712_05B, D7);
 
 #define ONE_SECOND 1000
 #define ONE_MINUTE 60 * ONE_SECOND
@@ -218,6 +227,8 @@ void setup()
   digitalWrite(r2, HIGH);
   setupAP();
   setupMQTT();
+  sensor1.begin();
+  sensor2.calibrate();
 }
 
 void loop()
@@ -250,6 +261,16 @@ void loop()
     mqtt_client.subscribe(tp.c_str());
   }
   // put your main code here, to run repeatedly:
+  //get current temperature
+  sensor1.requestTemperatures();
+  Serial.print("Temperature: ");
+  Serial.println(sensor1.getTempCByIndex(0));
+  delay(2000);
+  // Get current from sensor
+  float I = sensor2.getCurrentDC();
+  
+  // Send it to serial
+  Serial.println(String("I = ") + I + " A");
 }
 
 // put function definitions here:
